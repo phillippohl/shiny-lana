@@ -1,4 +1,4 @@
-package com.shiny_lana;
+package com.shiny_lana.UI;
 
 import javax.servlet.annotation.WebServlet;
 
