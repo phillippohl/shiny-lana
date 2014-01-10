@@ -13,7 +13,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-@Theme("shiny_lanatheme")
+@Theme("shiny-lanatheme")
 public class Shiny_lanaUI extends UI {
 
 	@WebServlet(value = "/*", asyncSupported = true)
