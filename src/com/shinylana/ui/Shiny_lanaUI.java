@@ -1,4 +1,4 @@
-package com.shiny_lana.UI;
+package com.shinylana.ui;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -25,6 +25,7 @@ public class Shiny_lanaUI extends UI {
 	protected void init(VaadinRequest request) {
 		final VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
+		// layout.setSizeFull(); // Use entire window
 		setContent(layout);
 
 		Button button = new Button("Click Me");
