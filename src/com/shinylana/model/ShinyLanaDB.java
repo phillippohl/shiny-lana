@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
-import com.vaadin.data.util.sqlcontainer.query.TableQuery;
 
 /**
  * @author phillippohl
@@ -17,9 +15,9 @@ import com.vaadin.data.util.sqlcontainer.query.TableQuery;
  */
 public class ShinyLanaDB {
 	
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/shinylana";
-	private static final String DB_driver = "com.mysql.jdbc.Driver";
-	private JDBCConnectionPool connectionPool;
+	static final String DB_URL = "jdbc:mysql://localhost:3306/shinylana";
+	static final String DB_driver = "com.mysql.jdbc.Driver";
+	SimpleJDBCConnectionPool connectionPool;
 	
 	public ShinyLanaDB() {
 		// connect to SQL database
@@ -29,7 +27,7 @@ public class ShinyLanaDB {
 	private synchronized void connect() {
 		if (connectionPool == null) {
 			try {	
-				connectionPool = new SimpleJDBCConnectionPool(DB_driver, DB_URL, "admin", "Fibo!!112358", 2, 100);
+				connectionPool = new SimpleJDBCConnectionPool("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/shinylana", "admin", "Fibo!!112358", 2, 5);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -39,20 +37,7 @@ public class ShinyLanaDB {
 		}
 	}
     
-    public JDBCConnectionPool getConnectionPool() {
+    public SimpleJDBCConnectionPool getConnectionPool() {
     	return connectionPool;
     }
-	
-	public static void main(String[] args) {
-		ShinyLanaDB db = new ShinyLanaDB();
-		UserTable user = new UserTable(db.getConnectionPool());
-		
-		List list = new ArrayList();
-		list.add(7);
-		list.add("test_user7");
-		list.add("test_pass");
-		list.add(null);
-		list.add(null);
-		user.insert(list);
-	}
 }

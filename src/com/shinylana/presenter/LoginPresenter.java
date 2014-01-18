@@ -36,22 +36,22 @@ public class LoginPresenter implements LoginViewListener {
     		view.setDisplay("Wrong credentials.\nCheck username and password!");
     	}
     	else { 		
-    		view.setDisplay("user: " + username + "\npassword: " + password);
+    		insertUser(username, password);
     		Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAIN_VIEW);
     	}
-    	insertUser();
 	}
 
-	private void insertUser() {
-    	ShinyLanaDB db = new ShinyLanaDB();
-		//UserTable user = new UserTable(db.getConnectionPool());
-		/*
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void insertUser(String username, String password) {
+		ShinyLanaDB db = new ShinyLanaDB();
+		UserTable user = new UserTable(db.getConnectionPool());
+		
 		List list = new ArrayList();
-		list.add(8);
-		list.add("test_user_8");
-		list.add("test_pass");
+		list.add(9);
+		list.add(username);
+		list.add(password);
 		list.add(null);
 		list.add(null);
-		user.insert(list);*/
+		user.insert(list);
 	}
 }
