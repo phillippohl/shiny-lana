@@ -12,6 +12,7 @@ import com.vaadin.ui.UI;
 import com.shinylana.ui.views.LoginView;
 import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.NewCompanyView;
+import com.shinylana.model.tables.LoginModel;
 import com.shinylana.presenter.LoginPresenter;
 import com.shinylana.presenter.MainViewPresenter;
 import com.shinylana.presenter.NewCompanyPresenter;
@@ -41,7 +42,7 @@ public class Shiny_lanaUI extends UI {
         // Create and register the views
         LoginView loginView = new LoginView();
         navigator.addView("", loginView);
-        LoginPresenter loginPresenter = new LoginPresenter(loginView);
+        LoginPresenter loginPresenter = new LoginPresenter(new LoginModel(), loginView);
         NewCompanyView newCompanyView = new NewCompanyView();
         navigator.addView(NEWCOMPANY_VIEW,newCompanyView);
         NewCompanyPresenter newCompanyPresenter = new NewCompanyPresenter(newCompanyView);

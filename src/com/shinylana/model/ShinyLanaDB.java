@@ -4,8 +4,6 @@
 package com.shinylana.model;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
 
@@ -15,9 +13,11 @@ import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
  */
 public class ShinyLanaDB {
 	
-	static final String DB_URL = "jdbc:mysql://localhost:3306/shinylana";
-	static final String DB_driver = "com.mysql.jdbc.Driver";
-	SimpleJDBCConnectionPool connectionPool;
+	private static final String DB_driver = "com.mysql.jdbc.Driver";
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/shinylana";
+	private static final String ADMIN_NAME = "admin";
+	private static final String ADMIN_PASSWORD = "Fibo!!112358";
+	private SimpleJDBCConnectionPool connectionPool;
 	
 	public ShinyLanaDB() {
 		// connect to SQL database
@@ -27,7 +27,7 @@ public class ShinyLanaDB {
 	private synchronized void connect() {
 		if (connectionPool == null) {
 			try {	
-				connectionPool = new SimpleJDBCConnectionPool("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/shinylana", "admin", "Fibo!!112358", 2, 5);
+				connectionPool = new SimpleJDBCConnectionPool(DB_driver, DB_URL, ADMIN_NAME, ADMIN_PASSWORD, 2, 5);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

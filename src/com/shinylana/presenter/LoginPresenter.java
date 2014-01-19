@@ -3,12 +3,9 @@
  */
 package com.shinylana.presenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.shinylana.model.ShinyLanaDB;
-import com.shinylana.model.UserTable;
-import com.shinylana.ui.Shiny_lanaUI;
+import com.shinylana.model.tables.LoginModel;
 import com.shinylana.ui.views.LoginViewSpec.LoginViewListener;
 import com.shinylana.ui.views.LoginView;
 
@@ -17,11 +14,12 @@ import com.shinylana.ui.views.LoginView;
  * @version 0.1
  */
 public class LoginPresenter implements LoginViewListener {
-	//LoginModel model
+	LoginModel model;
 	LoginView view;
+	List result;
 	
-	public LoginPresenter(/*LoginModel model, */LoginView view) {
-        //this.model = model;
+	public LoginPresenter(LoginModel model, LoginView view) {
+        this.model = model;
         this.view  = view;
         view.addListener(this);
 	}
@@ -33,25 +31,18 @@ public class LoginPresenter implements LoginViewListener {
 		String password = view.getPassword();
 		
     	if (username.trim().length() == 0 || password.trim().length() == 0) {
-    		view.setDisplay("Wrong credentials.\nCheck username and password!");
+    		view.setDisplay("Please enter username and password!");
     	}
-    	else { 		
-    		insertUser(username, password);
-    		Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAIN_VIEW);
+    	else { 		 		  		
+    		try {
+    			result = model.select(username, password);  
+    			int rowIndex = (Integer) result.get(0);   
+    			view.setDisplay("" + rowIndex);
+        	} catch (NullPointerException npe) {
+        		npe.printStackTrace();
+        		view.setDisplay("Login credentials are incorrect!\nCheck username and password!");
+        	}
+    		//Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAIN_VIEW);
     	}
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void insertUser(String username, String password) {
-		ShinyLanaDB db = new ShinyLanaDB();
-		UserTable user = new UserTable(db.getConnectionPool());
-		
-		List list = new ArrayList();
-		list.add(9);
-		list.add(username);
-		list.add(password);
-		list.add(null);
-		list.add(null);
-		user.insert(list);
 	}
 }

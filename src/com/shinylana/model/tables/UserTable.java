@@ -1,11 +1,14 @@
 /**
  * 
  */
-package com.shinylana.model;
+package com.shinylana.model.tables;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.shinylana.model.ShinyLanaDB;
+import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
@@ -72,6 +75,32 @@ public class UserTable implements ShinyLanaTableSpec {
         }
 		return userContainer.lastItemId().toString();
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#select()
+	 */
+	@Override
+	public List select(String username, String password) throws NullPointerException {
+		List result = new ArrayList();
+		initContainer();
+        if (!userContainer.isModified()) {
+            userContainer.addContainerFilter(new Equal("username", username));
+            userContainer.addContainerFilter(new Equal("password", password));
+            Object id = userContainer.firstItemId();
+            	
+            // Return row number (user_id)
+            result.add(userContainer.getItem(id).getItemProperty("user_id").getValue());
+            
+            try {
+            	userContainer.commit();
+            	userContainer.removeAllContainerFilters();
+            	userContainer.refresh();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+		return result;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.shinylana.model.ShinyLanaTableSpec#delete(int)
@@ -81,5 +110,4 @@ public class UserTable implements ShinyLanaTableSpec {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

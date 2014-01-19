@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.shinylana.model;
+package com.shinylana.model.tables;
 
 import java.util.List;
 
@@ -12,5 +12,6 @@ import java.util.List;
 public interface ShinyLanaTableSpec {
 	void initContainer();
 	String insert(List<?> newRecord);
+	List select(String username, String password);
 	void delete(int index);
 }
