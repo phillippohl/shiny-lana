@@ -6,12 +6,16 @@ package com.shinylana.ui.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shinylana.ui.Shiny_lanaUI;
 import com.shinylana.ui.composites.LoginComposite;
 import com.shinylana.ui.composites.MainComposite;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -55,6 +59,23 @@ public class MainView extends VerticalLayout implements ClickListener, MainViewS
 	 */
 	@Override
 	public void enter(ViewChangeEvent event) {
+		((Shiny_lanaUI)UI.getCurrent()).getNavigator().addViewChangeListener(new ViewChangeListener() {
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent event) {
+                if (event.getNewView() instanceof MainView && ((Shiny_lanaUI)UI.getCurrent()).getLoggedInUser() == null) {
+                    Notification.show("Permission denied", Type.ERROR_MESSAGE);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public void afterViewChange(ViewChangeEvent event) {
+            	System.out.println("After view change");
+            }
+
+        });
 		setDisplay("Welcome to Shiny Lana!");
 	}
 

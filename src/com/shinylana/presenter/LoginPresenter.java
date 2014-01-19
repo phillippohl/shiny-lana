@@ -6,14 +6,16 @@ package com.shinylana.presenter;
 import java.util.List;
 
 import com.shinylana.model.tables.LoginModel;
-import com.shinylana.ui.views.LoginViewSpec.LoginViewListener;
+import com.shinylana.ui.Shiny_lanaUI;
+import com.shinylana.ui.views.LoginViewSpec.LoginButtonListener;
 import com.shinylana.ui.views.LoginView;
+import com.vaadin.ui.UI;
 
 /**
  * @author phillippohl
  * @version 0.1
  */
-public class LoginPresenter implements LoginViewListener {
+public class LoginPresenter implements LoginButtonListener {
 	LoginModel model;
 	LoginView view;
 	List result;
@@ -21,7 +23,7 @@ public class LoginPresenter implements LoginViewListener {
 	public LoginPresenter(LoginModel model, LoginView view) {
         this.model = model;
         this.view  = view;
-        view.addListener(this);
+        view.addLoginButtonListener(this);
 	}
 
 	@Override
@@ -38,11 +40,14 @@ public class LoginPresenter implements LoginViewListener {
     			result = model.select(username, password);  
     			int rowIndex = (Integer) result.get(0);   
     			view.setDisplay("" + rowIndex);
+    			
+                // indicate the user is logged in
+                /*((Shiny_lanaUI)UI.getCurrent()).
+                
+    			((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(Shiny_lanaUI.MAIN_VIEW);*/
         	} catch (NullPointerException npe) {
-        		npe.printStackTrace();
         		view.setDisplay("Login credentials are incorrect!\nCheck username and password!");
         	}
-    		//Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAIN_VIEW);
     	}
 	}
 }

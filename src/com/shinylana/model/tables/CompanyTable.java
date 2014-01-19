@@ -1,11 +1,12 @@
 /**
  * 
  */
-package com.shinylana.model;
+package com.shinylana.model.tables;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import com.shinylana.model.ShinyLanaDB;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;

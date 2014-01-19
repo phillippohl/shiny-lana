@@ -12,6 +12,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Link;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
@@ -22,16 +23,16 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class LoginView extends VerticalLayout implements ClickListener, LoginViewSpec {
 	
-    private List<LoginViewListener> listeners = new ArrayList<LoginViewListener>();
+    private List<LoginButtonListener> listeners = new ArrayList<LoginButtonListener>();
     private LoginComposite login;
 	
 	public LoginView() {
         setSizeFull();
         
     	login = new LoginComposite();  
-    	login.getButton().addClickListener(this);
+    	login.getLoginButton().addClickListener(this);
     	addComponent(login);
-        setComponentAlignment(login, Alignment.MIDDLE_CENTER);       
+        setComponentAlignment(login, Alignment.MIDDLE_CENTER);
     }
 	 
     @Override
@@ -45,7 +46,7 @@ public class LoginView extends VerticalLayout implements ClickListener, LoginVie
 	}
 	
 	@Override
-	public void addListener(LoginViewListener listener) {	
+	public void addLoginButtonListener(LoginButtonListener listener) {	
 		listeners.add(listener);		
 	}
 
@@ -53,17 +54,25 @@ public class LoginView extends VerticalLayout implements ClickListener, LoginVie
      *  implementation-independent event */
 	@Override
 	public void buttonClick(ClickEvent event) {
-        for (LoginViewListener listener: listeners) {
+        for (LoginButtonListener listener: listeners) {
             listener.buttonClick();
         }
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see com.shinylana.ui.views.LoginViewSpec#getButton()
+	 * @see com.shinylana.ui.views.LoginViewSpec#getLoginButton()
 	 */
 	@Override
-	public Button getButton() {
-		return login.getButton();
+	public Button getLoginButton() {
+		return login.getLoginButton();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.shinylana.ui.views.LoginViewSpec#getRegisterLink()
+	 */
+	@Override
+	public Link getRegisterLink() {
+		return login.getRegisterLink();
 	}
 
 	/* (non-Javadoc)

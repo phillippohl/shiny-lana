@@ -30,14 +30,15 @@ public class LoginModel implements ShinyLanaModelSpec {
 	 * @see com.shinylana.model.ShinyLanaModelSpec#insert()
 	 */
 	@Override
-	public void insert(List input) {		
-		List list = new ArrayList();
-		list.add(9);
-		list.add(input.get(0));
-		list.add(input.get(1));
-		list.add(null);
-		list.add(null);
-		userTable.insert(list);	
+	public void insert(List newUser) {
+		
+		List newUserRecord = new ArrayList();
+		newUserRecord.add(10);
+		newUserRecord.add(newUser.get(0));
+		newUserRecord.add(newUser.get(1));
+		newUserRecord.add(null);
+		newUserRecord.add(null);
+		userTable.insert(newUserRecord);	
 	}
 
 	/* (non-Javadoc)
@@ -47,6 +48,12 @@ public class LoginModel implements ShinyLanaModelSpec {
 	public List select(String username, String password) {
 		List result = new ArrayList();
 		result = userTable.select(username, password);
+		return result;
+	}
+	
+	public List checkUserName(String username) {
+		List result = new ArrayList();
+		result = userTable.checkUserName(username);
 		return result;
 	}
 

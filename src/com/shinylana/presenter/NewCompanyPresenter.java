@@ -8,6 +8,7 @@ import java.util.List;
 import com.shinylana.ui.Shiny_lanaUI;
 import com.shinylana.ui.views.NewCompanyView;
 import com.shinylana.ui.views.NewCompanyViewSpec.NewCompanyViewListener;
+import com.vaadin.ui.UI;
 
 /**
  * @author phillippohl
@@ -34,6 +35,6 @@ public class NewCompanyPresenter implements NewCompanyViewListener {
 		// Retrieve user input	
     	view.setDisplay(newCompanyInput.get(0));
     	//insertUser();
-    	Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAIN_VIEW);
+    	((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(Shiny_lanaUI.MAIN_VIEW);
 	}
 }

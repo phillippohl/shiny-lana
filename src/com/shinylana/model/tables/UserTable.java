@@ -33,7 +33,6 @@ public class UserTable implements ShinyLanaTableSpec {
 	public UserTable() {
 		ShinyLanaDB db = new ShinyLanaDB();
 		this.connectionPool = db.getConnectionPool();
-		initContainer();
 	}
     
     public UserTable(JDBCConnectionPool connectionPool) {
@@ -59,14 +58,15 @@ public class UserTable implements ShinyLanaTableSpec {
 	 * @see com.shinylana.model.ShinyLanaTableSpec#insert(java.util.List)
 	 */
 	@Override
-	public String insert(List<?> newRecord) {
+	public String insert(List<?> newUserRecord) {
+		initContainer();
         if (!userContainer.isModified()) {
-            Object id = userContainer.addItem();
-            userContainer.getContainerProperty(id, "user_id").setValue(newRecord.get(0));
-            userContainer.getContainerProperty(id, "username").setValue(newRecord.get(1));
-            userContainer.getContainerProperty(id, "password").setValue(newRecord.get(2));
-            userContainer.getContainerProperty(id, "email").setValue(newRecord.get(3));
-            userContainer.getContainerProperty(id, "create_time").setValue(newRecord.get(4));
+            Object id = userContainer.addItem();    
+            userContainer.getContainerProperty(id, "user_id").setValue(userContainer.size());
+            userContainer.getContainerProperty(id, "username").setValue(newUserRecord.get(1));
+            userContainer.getContainerProperty(id, "password").setValue(newUserRecord.get(2));
+            userContainer.getContainerProperty(id, "email").setValue(newUserRecord.get(3));
+            userContainer.getContainerProperty(id, "create_time").setValue(newUserRecord.get(4));
             try {
             	userContainer.commit();
             } catch (SQLException e) {
@@ -109,5 +109,26 @@ public class UserTable implements ShinyLanaTableSpec {
 	public void delete(int index) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public List checkUserName(String username) throws NullPointerException {
+		List result = new ArrayList();
+		initContainer();
+        if (!userContainer.isModified()) {
+            userContainer.addContainerFilter(new Equal("username", username));
+            Object id = userContainer.firstItemId();
+            	
+            // Return row number (user_id)
+            result.add(userContainer.getItem(id).getItemProperty("user_id").getValue());
+            
+            try {
+            	userContainer.commit();
+            	userContainer.removeAllContainerFilters();
+            	userContainer.refresh();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+		return result;
 	}
 }

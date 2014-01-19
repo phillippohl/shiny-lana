@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.shinylana.model;
+package com.shinylana.model.tables;
 
 import java.util.List;
 
@@ -9,11 +9,12 @@ import java.util.List;
  * @author phillippohl
  * @version 0.1
  */
-public class EventTable implements ShinyLanaTableSpec {
+public class MarketTable implements ShinyLanaTableSpec {
 
-    public static final String PROPERTY_TABLE_NAME = "event";
+	public static final String PROPERTY_TABLE_NAME = "market";
     public static final String PROPERTY_TABLE_ID = PROPERTY_TABLE_NAME + "id";
-    public static final String PROPERTY_TITLE = "title";
+    public static final String PROPERTY_VOLUME = "volume";
+    public static final String PROPERTY_VOLUME_CHANGE = "volume_change";
 	
 	/* (non-Javadoc)
 	 * @see com.shinylana.model.ShinyLanaTableSpec#initContainer()
