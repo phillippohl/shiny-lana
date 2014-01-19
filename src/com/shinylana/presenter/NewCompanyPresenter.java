@@ -35,6 +35,5 @@ public class NewCompanyPresenter implements NewCompanyViewListener {
 		// Retrieve user input	
     	view.setDisplay(newCompanyInput.get(0));
     	//insertUser();
-    	((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(Shiny_lanaUI.MAIN_VIEW);
 	}
 }

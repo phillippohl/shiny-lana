@@ -23,7 +23,8 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class LoginView extends VerticalLayout implements ClickListener, LoginViewSpec {
 	
-    private List<LoginButtonListener> listeners = new ArrayList<LoginButtonListener>();
+    public static final String NAME = "login";
+	private List<LoginButtonListener> listeners = new ArrayList<LoginButtonListener>();
     private LoginComposite login;
 	
 	public LoginView() {

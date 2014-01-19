@@ -23,7 +23,8 @@ import com.vaadin.ui.Button.ClickListener;
 @SuppressWarnings("serial")
 public class RegisterView extends VerticalLayout implements ClickListener, RegisterViewSpec {
 
-    private List<RegisterButtonListener> listeners = new ArrayList<RegisterButtonListener>();
+    public static final String NAME = "register";
+	private List<RegisterButtonListener> listeners = new ArrayList<RegisterButtonListener>();
     private RegisterComposite register;
 	
 	/**

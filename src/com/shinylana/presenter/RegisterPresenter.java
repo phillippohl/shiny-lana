@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.shinylana.model.tables.LoginModel;
 import com.shinylana.ui.Shiny_lanaUI;
+import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.RegisterView;
 import com.shinylana.ui.views.RegisterViewSpec.RegisterButtonListener;
 import com.vaadin.ui.UI;
@@ -59,7 +60,7 @@ public class RegisterPresenter implements RegisterButtonListener {
     			newUser.add(username);
     			newUser.add(password);  			
         		model.insert(newUser);    
-        		((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(Shiny_lanaUI.MAIN_VIEW);
+        		((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(MainView.NAME);
         	}
     	}
 	}

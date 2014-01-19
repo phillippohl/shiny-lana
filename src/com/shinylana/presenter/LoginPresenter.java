@@ -9,6 +9,7 @@ import com.shinylana.model.tables.LoginModel;
 import com.shinylana.ui.Shiny_lanaUI;
 import com.shinylana.ui.views.LoginViewSpec.LoginButtonListener;
 import com.shinylana.ui.views.LoginView;
+import com.shinylana.ui.views.MainView;
 import com.vaadin.ui.UI;
 
 /**
@@ -42,9 +43,9 @@ public class LoginPresenter implements LoginButtonListener {
     			view.setDisplay("" + rowIndex);
     			
                 // indicate the user is logged in
-                /*((Shiny_lanaUI)UI.getCurrent()).
+                /*((Shiny_lanaUI)UI.getCurrent()).*/
                 
-    			((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(Shiny_lanaUI.MAIN_VIEW);*/
+    			((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(MainView.NAME);
         	} catch (NullPointerException npe) {
         		view.setDisplay("Login credentials are incorrect!\nCheck username and password!");
         	}

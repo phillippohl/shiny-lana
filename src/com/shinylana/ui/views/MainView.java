@@ -26,7 +26,8 @@ import com.vaadin.ui.Button.ClickListener;
 @SuppressWarnings("serial")
 public class MainView extends VerticalLayout implements ClickListener, MainViewSpec {
 	
-    private List<MainViewListener> listeners = new ArrayList<MainViewListener>();
+    public static final String NAME = "main";
+	private List<MainViewListener> listeners = new ArrayList<MainViewListener>();
     private MainComposite main;
    
 	

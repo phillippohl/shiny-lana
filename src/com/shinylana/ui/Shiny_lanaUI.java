@@ -26,10 +26,8 @@ public class Shiny_lanaUI extends UI {
 	
 	private Navigator navigator;
 	private String loggedInUser;
-    public static final String LOGIN_VIEW = "login";
-    public static final String REGISTER_VIEW = "register";
+
     public static final String NEWCOMPANY_VIEW = "newCompany";
-    public static final String MAIN_VIEW = "main";
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = Shiny_lanaUI.class)
@@ -49,16 +47,16 @@ public class Shiny_lanaUI extends UI {
         LoginPresenter loginPresenter = new LoginPresenter(new LoginModel(), loginView);
         
         RegisterView registerView = new RegisterView();
-        navigator.addView(REGISTER_VIEW, registerView);
+        navigator.addView(RegisterView.NAME, registerView);
         RegisterPresenter registerPresenter = new RegisterPresenter(new LoginModel(), registerView);
         
         NewCompanyView newCompanyView = new NewCompanyView();
         navigator.addView(NEWCOMPANY_VIEW,newCompanyView);
         NewCompanyPresenter newCompanyPresenter = new NewCompanyPresenter(newCompanyView);
         
-        MainView skeleton = new MainView();
-        navigator.addView(MAIN_VIEW,skeleton);
-        MainViewPresenter mainViewPresenter = new MainViewPresenter(skeleton);
+        MainView main = new MainView();
+        navigator.addView(MainView.NAME,main);
+        MainViewPresenter mainViewPresenter = new MainViewPresenter(main);
 	}
 	
 	public void setLoggedInUser(String user) {
