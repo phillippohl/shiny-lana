@@ -95,4 +95,12 @@ public class Shiny_lanaUI extends UI {
     public String getLoggedInUser() {
     	return loggedInUser;
     }
+    
+    public void logout() {
+        // Close the VaadinServiceSession
+        getUI().getSession().close();
+
+        // Redirect to avoid keeping the removed UI open in the browser
+        navigator.navigateTo(LoginView.NAME);
+    }
 }

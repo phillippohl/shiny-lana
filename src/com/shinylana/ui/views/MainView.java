@@ -18,6 +18,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickListener;
@@ -80,7 +81,7 @@ public class MainView extends VerticalLayout implements SelectedTabChangeListene
         }	
 	}
 	
-	public Component getCurrentTab() {
-		return main.getTabSheet().getSelectedTab();
+	public Tab getCurrentTab() {
+		return main.getTabSheet().getTab(main.getTabSheet().getSelectedTab());
 	}
 }
