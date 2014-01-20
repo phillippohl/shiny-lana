@@ -31,7 +31,7 @@ public class LoginView extends VerticalLayout implements ClickListener, LoginVie
         setSizeFull();
         
     	login = new LoginComposite();  
-    	login.getLoginButton().addClickListener(this);
+    	login.getLoginButton().addClickListener(this);    	
     	addComponent(login);
         setComponentAlignment(login, Alignment.MIDDLE_CENTER);
     }

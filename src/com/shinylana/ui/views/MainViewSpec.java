@@ -17,7 +17,7 @@ public interface MainViewSpec extends View {
 	
 	//  Receive user interaction
     interface MainViewListener {
-        void buttonClick(String username, String password);
+        void SelectedTabChange();
     }
-	void addListener(MainViewListener listener);
+	void addMainViewListener(MainViewListener listener);
 }

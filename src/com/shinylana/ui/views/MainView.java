@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shinylana.ui.Shiny_lanaUI;
-import com.shinylana.ui.composites.LoginComposite;
 import com.shinylana.ui.composites.MainComposite;
+import com.shinylana.ui.views.LoginViewSpec.LoginButtonListener;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickListener;
@@ -24,33 +27,20 @@ import com.vaadin.ui.Button.ClickListener;
  * @version 0.1
  */
 @SuppressWarnings("serial")
-public class MainView extends VerticalLayout implements ClickListener, MainViewSpec {
+public class MainView extends VerticalLayout implements SelectedTabChangeListener, MainViewSpec {
 	
     public static final String NAME = "main";
 	private List<MainViewListener> listeners = new ArrayList<MainViewListener>();
     private MainComposite main;
-   
-	
+   	
 	/**
 	 * 
 	 */
 	public MainView() {
         setSizeFull();
         
-        /*Button button = new Button("Go to Main View", new Button.ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-            	//Shiny_lanaUI.navigator.navigateTo(Shiny_lanaUI.MAINVIEW);
-
-            }
-        });*/
-        
-        main = new MainComposite();  
-        /*login.getButton().addClickListener(new Button.ClickListener() {
-    		public void buttonClick(ClickEvent event) {
-    			setDisplay("User input entered!");
-    		}
-        });*/
+        main = new MainComposite();
+        main.getTabSheet().addSelectedTabChangeListener(this);
     	addComponent(main);
     	setComponentAlignment(main, Alignment.MIDDLE_CENTER);
 	}
@@ -60,23 +50,7 @@ public class MainView extends VerticalLayout implements ClickListener, MainViewS
 	 */
 	@Override
 	public void enter(ViewChangeEvent event) {
-		((Shiny_lanaUI)UI.getCurrent()).getNavigator().addViewChangeListener(new ViewChangeListener() {
-            @Override
-            public boolean beforeViewChange(ViewChangeEvent event) {
-                if (event.getNewView() instanceof MainView && ((Shiny_lanaUI)UI.getCurrent()).getLoggedInUser() == null) {
-                    Notification.show("Permission denied", Type.ERROR_MESSAGE);
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-            @Override
-            public void afterViewChange(ViewChangeEvent event) {
-            	System.out.println("After view change");
-            }
-
-        });
+		main.setMenuBarItemUser(((Shiny_lanaUI)UI.getCurrent()).getLoggedInUser());
 		setDisplay("Welcome to Shiny Lana!");
 	}
 
@@ -87,22 +61,26 @@ public class MainView extends VerticalLayout implements ClickListener, MainViewS
 	public void setDisplay(String output) {
 		Notification.show(output);
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see com.shinylana.ui.views.MainViewSpec#addListener(com.shinylana.ui.views.MainViewSpec.MainViewListener)
+	 * @see com.shinylana.ui.views.MainViewSpec#addMainViewListener(com.shinylana.ui.views.MainViewSpec.MainViewListener)
 	 */
 	@Override
-	public void addListener(MainViewListener listener) {
+	public void addMainViewListener(MainViewListener listener) {
 		listeners.add(listener);	
 	}
 
 	/* (non-Javadoc)
-	 * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+	 * @see com.vaadin.ui.TabSheet.SelectedTabChangeListener#selectedTabChange(com.vaadin.ui.TabSheet.SelectedTabChangeEvent)
 	 */
 	@Override
-	public void buttonClick(ClickEvent event) {
+	public void selectedTabChange(SelectedTabChangeEvent event) {
         for (MainViewListener listener: listeners) {
-            //listener.buttonClick(skeleton.getUsername().getValue(), skeleton.getPassword().getValue());
-        }
+            listener.SelectedTabChange();
+        }	
+	}
+	
+	public Component getCurrentTab() {
+		return main.getTabSheet().getSelectedTab();
 	}
 }

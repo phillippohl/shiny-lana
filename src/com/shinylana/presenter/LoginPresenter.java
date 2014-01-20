@@ -42,8 +42,8 @@ public class LoginPresenter implements LoginButtonListener {
     			int rowIndex = (Integer) result.get(0);   
     			view.setDisplay("" + rowIndex);
     			
-                // indicate the user is logged in
-                /*((Shiny_lanaUI)UI.getCurrent()).*/
+                // Log user in
+                ((Shiny_lanaUI)UI.getCurrent()).setLoggedInUser(username);
                 
     			((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(MainView.NAME);
         	} catch (NullPointerException npe) {

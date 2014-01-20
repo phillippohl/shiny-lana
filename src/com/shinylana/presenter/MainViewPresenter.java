@@ -21,16 +21,15 @@ public class MainViewPresenter implements MainViewListener {
 	public MainViewPresenter(/*LoginModel model, */MainView view) {
         //this.model = model;
         this.view  = view;
-        view.addListener(this);
+        view.addMainViewListener(this);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.ui.views.MainViewSpec.MainViewListener#buttonClick(java.lang.String, java.lang.String)
+	 * @see com.shinylana.ui.views.MainViewSpec.MainViewListener#SelectedTabChange()
 	 */
 	@Override
-	public void buttonClick(String username, String password) {
-		// TODO Auto-generated method stub
-		
+	public void SelectedTabChange() {
+		view.setDisplay("Tab change");
+		view.getCurrentTab().setCaption("dfdfdf");
 	}
-
 }
