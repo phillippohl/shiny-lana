@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ShinyLanaModelSpec {
 	// Insert data into DB
-	void insert(List input);
+	void insert(@SuppressWarnings("rawtypes") List input);
 	
 	// Retrieve data from DB
 	@SuppressWarnings("rawtypes")

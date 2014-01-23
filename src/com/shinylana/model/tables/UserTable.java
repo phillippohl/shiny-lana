@@ -58,7 +58,7 @@ public class UserTable implements ShinyLanaTableSpec {
 	 * @see com.shinylana.model.ShinyLanaTableSpec#insert(java.util.List)
 	 */
 	@Override
-	public String insert(List<?> newUserRecord) {
+	public void insert(List<?> newUserRecord) {
 		initContainer();
         if (!userContainer.isModified()) {
             Object id = userContainer.addItem();    
@@ -73,7 +73,6 @@ public class UserTable implements ShinyLanaTableSpec {
                 e.printStackTrace();
             }
         }
-		return userContainer.lastItemId().toString();
 	}
 	
 	/* (non-Javadoc)
@@ -100,6 +99,15 @@ public class UserTable implements ShinyLanaTableSpec {
             }
         }
 		return result;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#update()
+	 */
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/* (non-Javadoc)

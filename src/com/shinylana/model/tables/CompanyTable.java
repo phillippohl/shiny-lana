@@ -41,37 +41,49 @@ public class CompanyTable implements ShinyLanaTableSpec {
 		this.connectionPool = connectionPool;
 		initContainer();
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaTableSpec#initContainer()
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#initContainer()
 	 */
 	@Override
 	public void initContainer() {
-        try {            
-        	tq_company = new TableQuery(PROPERTY_TABLE_NAME, connectionPool);
-        	tq_company.setVersionColumn("OPTLOCK");
-        	companyContainer = new SQLContainer(tq_company);
-          } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		// TODO Auto-generated method stub
+		
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaTableSpec#insert(java.util.List)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#insert(java.util.List)
 	 */
 	@Override
-	public String insert(List<?> newRecord) {
+	public void insert(List<?> newRecord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#select(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List select(String username, String password) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaTableSpec#delete(int)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#update()
+	 */
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#delete(int)
 	 */
 	@Override
 	public void delete(int index) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

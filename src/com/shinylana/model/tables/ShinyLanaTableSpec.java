@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface ShinyLanaTableSpec {
 	void initContainer();
-	String insert(List<?> newRecord);
+	void insert(List<?> newRecord);
 	List select(String username, String password);
+	void update();
 	void delete(int index);
 }
