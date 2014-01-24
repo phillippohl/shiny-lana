@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shinylana.model.tables.BalanceTable;
 import com.shinylana.model.tables.MarketTable;
 import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
@@ -125,5 +126,28 @@ public class MarketModel implements ShinyLanaModelSpec {
 	public void delete(int recordIndex) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List getMarket(int market_id) {
+		List result = new ArrayList();
+		initContainer();
+        if (!userContainer.isModified()) {    	
+            userContainer.addContainerFilter(new Equal(MarketTable.PROPERTY_TABLE_ID, market_id));
+            Object id = userContainer.firstItemId();
+            System.out.println(userContainer);
+            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_ID).getValue());
+            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_MARKET_NAME).getValue());
+            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME).getValue());
+            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME_CHANGE).getValue());
+        }
+            
+        try {
+        	userContainer.commit();
+            userContainer.removeAllContainerFilters();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }		
+		return result;
 	}
 }

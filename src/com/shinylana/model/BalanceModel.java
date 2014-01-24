@@ -4,12 +4,14 @@
 package com.shinylana.model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.shinylana.model.tables.ArrayList;
 import com.shinylana.model.tables.BalanceTable;
-import com.shinylana.model.tables.Equal;
-import com.shinylana.model.tables.UserTable;
+import com.vaadin.data.util.filter.Compare.Equal;
+import com.vaadin.data.util.sqlcontainer.SQLContainer;
+import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
+import com.vaadin.data.util.sqlcontainer.query.TableQuery;
 
 /**
  * @author phillippohl
@@ -18,63 +20,34 @@ import com.shinylana.model.tables.UserTable;
 public class BalanceModel implements ShinyLanaModelSpec {
 	
 	private ShinyLanaDB db;
-	private BalanceTable balance_table;
+	private JDBCConnectionPool connectionPool = null;
+    private TableQuery tq_user = null;
+    private SQLContainer userContainer = null;
 	
 	/**
 	 * 
 	 */
 	public BalanceModel() {
 		db = new ShinyLanaDB();
-		balance_table = new BalanceTable(db.getConnectionPool());
+		this.connectionPool = db.getConnectionPool();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.ShinyLanaModelSpec#initContainer()
+	 */
+	@Override
+	public void initContainer() {
+		try {            
+            tq_user = new TableQuery(BalanceTable.PROPERTY_TABLE_NAME, connectionPool);
+            tq_user.setVersionColumn("OPTLOCK");
+            userContainer = new SQLContainer(tq_user);
+          } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	/* (non-Javadoc)
 	 * @see com.shinylana.model.ShinyLanaModelSpec#insert(java.util.List)
-	 */
-	@Override
-	public void insert(List<?> input) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaModelSpec#select(java.util.List)
-	 */
-	@Override
-	public List select(List<?> record) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaModelSpec#update()
-	 */
-	@Override
-	public void update(List<?> record) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.shinylana.model.ShinyLanaModelSpec#delete()
-	 */
-	@Override
-	public void delete(int recordIndex) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public List getBalance(int period) {
-		return balance_table.getBalance(period);
-	}
-	
-	public Object[] getAll() {
-		return balance_table.getAll();
-	}
-	
-
-	/* (non-Javadoc)
-	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#insert(java.util.List)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -82,21 +55,21 @@ public class BalanceModel implements ShinyLanaModelSpec {
 		initContainer();
         if (!userContainer.isModified()) {
             Object id = userContainer.addItem();    
-            userContainer.getContainerProperty(id, PROPERTY_TABLE_ID).setValue(userContainer.size());
-            userContainer.getContainerProperty(id, PROPERTY_EQUITY).setValue(newRecord.get(1));
-            userContainer.getContainerProperty(id, PROPERTY_LIABILITIES).setValue(newRecord.get(2));
-            userContainer.getContainerProperty(id, PROPERTY_RECEIVABLES).setValue(newRecord.get(3));
-            userContainer.getContainerProperty(id, PROPERTY_CURRENT_STOCK_PRICE).setValue(newRecord.get(4));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_TABLE_ID).setValue(userContainer.size());
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).setValue(newRecord.get(1));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).setValue(newRecord.get(2));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).setValue(newRecord.get(3));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).setValue(newRecord.get(4));
             try {
             	userContainer.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }	
+        }
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#select(java.util.List)
+	 * @see com.shinylana.model.ShinyLanaModelSpec#select(java.util.List)
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -105,11 +78,11 @@ public class BalanceModel implements ShinyLanaModelSpec {
 		initContainer();
         if (!userContainer.isModified()) {
         	// username
-            userContainer.addContainerFilter(new Equal(PROPERTY_TABLE_ID, record.get(0)));
+            userContainer.addContainerFilter(new Equal(BalanceTable.PROPERTY_TABLE_ID, record.get(0)));
             Object id = userContainer.firstItemId();
             	
             // Return row number (user_id)
-            result.add(userContainer.getItem(id).getItemProperty(PROPERTY_TABLE_ID).getValue());
+            result.add(userContainer.getItem(id).getItemProperty(BalanceTable.PROPERTY_TABLE_ID).getValue());
             
             try {
             	userContainer.commit();
@@ -123,42 +96,59 @@ public class BalanceModel implements ShinyLanaModelSpec {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#update()
+	 * @see com.shinylana.model.ShinyLanaModelSpec#update()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
+	public void update(List<?> record) {
+		initContainer();
+        if (!userContainer.isModified()) { 
+            userContainer.addContainerFilter(new Equal(BalanceTable.PROPERTY_TABLE_ID, record.get(0)));
+        	Object id = userContainer.firstItemId();
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).setValue(record.get(1));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).setValue(record.get(2));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).setValue(record.get(3));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).setValue(record.get(4));
+            try {
+            	userContainer.commit();
+            	userContainer.removeAllContainerFilters();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	/* (non-Javadoc)
-	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#delete(int)
+	 * @see com.shinylana.model.ShinyLanaModelSpec#delete()
 	 */
 	@Override
-	public void delete(int index) {
+	public void delete(int recordIndex) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void nextPeriod() {
+		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getBalance(int period) {
 		List result = new ArrayList();
-		
 		initContainer();
-        if (!userContainer.isModified()) {    		
-        	userContainer.addContainerFilter(new Equal(PROPERTY_TABLE_ID, period));
+        if (!userContainer.isModified()) {    	
+            userContainer.addContainerFilter(new Equal(BalanceTable.PROPERTY_TABLE_ID, period));
             Object id = userContainer.firstItemId();
-            result.add(userContainer.getContainerProperty(id, PROPERTY_TABLE_ID).getValue());
-            result.add(userContainer.getContainerProperty(id, PROPERTY_EQUITY).getValue());
-            result.add(userContainer.getContainerProperty(id, PROPERTY_LIABILITIES).getValue());
-            result.add(userContainer.getContainerProperty(id, PROPERTY_RECEIVABLES).getValue());
-            result.add(userContainer.getContainerProperty(id, PROPERTY_CURRENT_STOCK_PRICE).getValue());
+            System.out.println(userContainer);
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_TABLE_ID).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).getValue());
         }
             
         try {
         	userContainer.commit();
             userContainer.removeAllContainerFilters();
-            userContainer.refresh();
         } catch (SQLException e) {
         	e.printStackTrace();
         }		
@@ -177,8 +167,7 @@ public class BalanceModel implements ShinyLanaModelSpec {
         		//result[counter] = userContainer.getItem(id).getItemProperty(PROPERTY_TABLE_ID).getValue();
         		System.out.println(result[counter]);
         		counter++;
-        	}
-            
+        	}           
             try {
             	userContainer.commit();
             	userContainer.removeAllContainerFilters();
@@ -186,8 +175,7 @@ public class BalanceModel implements ShinyLanaModelSpec {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-		
+        }		
 		return result;
 	}
 }

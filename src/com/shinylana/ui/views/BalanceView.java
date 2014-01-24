@@ -72,6 +72,7 @@ public class BalanceView extends VerticalLayout implements ValueChangeListener, 
         }	
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void setTableOutput(List table_output) {
 		balance.addAssetRow(table_output);
 		balance.addLiabilitiesEquityRow(table_output);

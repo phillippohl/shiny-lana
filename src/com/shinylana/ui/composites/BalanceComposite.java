@@ -100,6 +100,7 @@ public class BalanceComposite extends CustomComponent {
 		 * Other Non-Current Assets, e.g. Deferred Tax Assets, Lease Receivable
 		 */
 		table_1.addItem(new Object[] {"Cash and Cash Equivalents", new Double(10000)}, new Integer(1));
+		/*
 		table_1.addItem(new Object[] {"Accounts Receivable", newRecord.get(3)}, new Integer(2));
 		table_1.addItem(new Object[] {"Inventories", null}, new Integer(3));
 		table_1.addItem(new Object[] {"Prepaid Expenses", null}, new Integer(4));
@@ -110,7 +111,7 @@ public class BalanceComposite extends CustomComponent {
 		table_1.addItem(new Object[] {"Investments in Associates", null}, new Integer(9));
 		table_1.addItem(new Object[] {"Intangible Assets", null}, new Integer(10));
 		table_1.addItem(new Object[] {"Goodwill", null}, new Integer(11));
-		table_1.addItem(new Object[] {"Other Non-Current Assets", null}, new Integer(12));
+		table_1.addItem(new Object[] {"Other Non-Current Assets", null}, new Integer(12));*/
 	}
 	
 	public void addLiabilitiesEquityRow(List newRecord) {	
@@ -125,6 +126,7 @@ public class BalanceComposite extends CustomComponent {
 		 * 
 		 */
 		table_2.addItem(new Object[] {"Current Liabilities", newRecord.get(2)}, new Integer(1));
+		/*
 		table_2.addItem(new Object[] {"Accounts Payable", null}, new Integer(2));
 		table_2.addItem(new Object[] {"Current Income Tax Payable", null}, new Integer(3));
 		table_2.addItem(new Object[] {"Current portion of Loans Payable", null}, new Integer(4));
@@ -139,6 +141,7 @@ public class BalanceComposite extends CustomComponent {
 		 * Provisions, e.g. Pension Obligations
 		 * Other Non-Current Liabilities, e.g. Lease Obligations
 		 */
+		/*
 		table_2.addItem(new Object[] {"Loans Payable", null}, new Integer(7));
 		table_2.addItem(new Object[] {"Issued Debt Securities", null}, new Integer(8));
 		table_2.addItem(new Object[] {"Deferred Tax Liabilities", null}, new Integer(9));
@@ -155,8 +158,10 @@ public class BalanceComposite extends CustomComponent {
 		 * Accumulated Other Comprehensive Income
 		 */
 		table_2.addItem(new Object[] {"Share Capital", newRecord.get(1)}, new Integer(12));
-		table_2.addItem(new Object[] {"Retained Earnings", newRecord.get(1)}, new Integer(13));
-		table_2.addItem(new Object[] {"Revaluation Reserve", newRecord.get(1)}, new Integer(14));
-		table_2.addItem(new Object[] {"Accumulated Other Comprehensive Income", newRecord.get(1)}, new Integer(15));
+		/*
+		table_2.addItem(new Object[] {"Retained Earnings", null}, new Integer(13));
+		table_2.addItem(new Object[] {"Revaluation Reserve", null}, new Integer(14));
+		table_2.addItem(new Object[] {"Accumulated Other Comprehensive Income", null}, new Integer(15));
+		*/
 	}
 }

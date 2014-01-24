@@ -31,7 +31,6 @@ public class LoginModel implements ShinyLanaModelSpec {
 	public LoginModel() {
 		db = new ShinyLanaDB();
 		this.connectionPool = db.getConnectionPool();
-		initContainer();
 	}
 	
 	/* (non-Javadoc)
@@ -100,27 +99,6 @@ public class LoginModel implements ShinyLanaModelSpec {
         }
 		return result;
 	}
-	
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public List checkUserName(String username) throws NullPointerException {	
-		List result = new ArrayList();
-		initContainer();
-        if (!userContainer.isModified()) {
-            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_USERNAME, username));
-            Object id = userContainer.firstItemId();
-            	
-            // Return row number (user_id)
-            result.add(userContainer.getItem(id).getItemProperty(UserTable.PROPERTY_TABLE_ID).getValue());
-            
-            try {
-            	userContainer.commit();
-            	userContainer.removeAllContainerFilters();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-		return result;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.shinylana.model.ShinyLanaModelSpec#update()
@@ -165,5 +143,26 @@ public class LoginModel implements ShinyLanaModelSpec {
                 e.printStackTrace();
             }
         }
+	}
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public List checkUserName(String username) throws NullPointerException {	
+		List result = new ArrayList();
+		initContainer();
+        if (!userContainer.isModified()) {
+            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_USERNAME, username));
+            Object id = userContainer.firstItemId();
+            	
+            // Return row number (user_id)
+            result.add(userContainer.getItem(id).getItemProperty(UserTable.PROPERTY_TABLE_ID).getValue());
+            
+            try {
+            	userContainer.commit();
+            	userContainer.removeAllContainerFilters();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+		return result;
 	}
 }
