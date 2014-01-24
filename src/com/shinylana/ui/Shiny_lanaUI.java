@@ -18,7 +18,7 @@ import com.shinylana.ui.views.LoginView;
 import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.NewCompanyView;
 import com.shinylana.ui.views.RegisterView;
-import com.shinylana.model.tables.LoginModel;
+import com.shinylana.model.LoginModel;
 import com.shinylana.presenter.LoginPresenter;
 import com.shinylana.presenter.MainViewPresenter;
 import com.shinylana.presenter.NewCompanyPresenter;
@@ -31,6 +31,7 @@ public class Shiny_lanaUI extends UI {
 	
 	private Navigator navigator;
 	private String loggedInUser;
+	private int currentPeriod = 0;
 
     public static final String NEWCOMPANY_VIEW = "newCompany";
 	
@@ -90,6 +91,10 @@ public class Shiny_lanaUI extends UI {
 
             }
         });
+	}
+	
+	public int getCurrentPeriod() {
+		return currentPeriod;
 	}
 	
 	public void setLoggedInUser(String user) {

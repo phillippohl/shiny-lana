@@ -11,15 +11,15 @@ import java.util.List;
  */
 public interface ShinyLanaModelSpec {
 	// Insert data into DB
-	void insert(@SuppressWarnings("rawtypes") List input);
+	void insert(List<?> input);
 	
 	// Retrieve data from DB
 	@SuppressWarnings("rawtypes")
 	List select(List<?> record);
 	
 	// Update data in DB
-	void update();
+	void update(List<?> record);
 	
 	// Delete data from DB
-	void delete(); 
+	void delete(int recordIndex); 
 }

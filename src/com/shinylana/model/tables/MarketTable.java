@@ -21,9 +21,9 @@ public class MarketTable implements ShinyLanaTableSpec {
 
 	public static final String PROPERTY_TABLE_NAME = "market";
     public static final String PROPERTY_TABLE_ID = PROPERTY_TABLE_NAME + "_id";
-    public static final String PROPERTY_MARKET_NAME = "market_name";
+    public static final String PROPERTY_MARKET_NAME = PROPERTY_TABLE_NAME + "_name";
     public static final String PROPERTY_VOLUME = "volume";
-    public static final String PROPERTY_VOLUME_CHANGE = "volume_change";
+    public static final String PROPERTY_VOLUME_CHANGE = PROPERTY_VOLUME + "_change";
     
 	private JDBCConnectionPool connectionPool = null;
     private TableQuery tq_user = null;
@@ -55,6 +55,7 @@ public class MarketTable implements ShinyLanaTableSpec {
 	/* (non-Javadoc)
 	 * @see com.shinylana.model.tables.ShinyLanaTableSpec#insert(java.util.List)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void insert(List<?> newRecord) {
 		initContainer();

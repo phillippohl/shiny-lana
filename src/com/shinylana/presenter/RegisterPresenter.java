@@ -6,7 +6,7 @@ package com.shinylana.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shinylana.model.tables.LoginModel;
+import com.shinylana.model.LoginModel;
 import com.shinylana.ui.Shiny_lanaUI;
 import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.RegisterView;
