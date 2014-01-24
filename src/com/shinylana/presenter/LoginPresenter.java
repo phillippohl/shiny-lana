@@ -3,6 +3,7 @@
  */
 package com.shinylana.presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.shinylana.model.tables.LoginModel;
@@ -38,7 +39,10 @@ public class LoginPresenter implements LoginButtonListener {
     	}
     	else { 		 		  		
     		try {
-    			result = model.select(username, password);  
+    			List record = new ArrayList();
+    			record.add(username);
+    			record.add(password);
+    			result = model.select(record);  
     			int rowIndex = (Integer) result.get(0);   
     			view.setDisplay("" + rowIndex);
     			

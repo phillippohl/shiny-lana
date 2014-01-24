@@ -12,7 +12,7 @@ import java.util.List;
 public interface ShinyLanaTableSpec {
 	void initContainer();
 	void insert(List<?> newRecord);
-	List select(String username, String password);
+	List select(List<?> record);
 	void update();
 	void delete(int index);
 }

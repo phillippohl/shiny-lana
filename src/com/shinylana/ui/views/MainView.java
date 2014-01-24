@@ -84,4 +84,8 @@ public class MainView extends VerticalLayout implements SelectedTabChangeListene
 	public Tab getCurrentTab() {
 		return main.getTabSheet().getTab(main.getTabSheet().getSelectedTab());
 	}
+	
+	public void setTabSheetContent(Component content) {
+		main.setTabSheetContent(content);
+	}
 }

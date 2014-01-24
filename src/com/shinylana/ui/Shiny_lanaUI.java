@@ -13,6 +13,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Notification.Type;
+import com.shinylana.ui.views.BalanceView;
 import com.shinylana.ui.views.LoginView;
 import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.NewCompanyView;
@@ -65,6 +66,9 @@ public class Shiny_lanaUI extends UI {
         MainView main = new MainView();
         navigator.addView(MainView.NAME, main);
         MainViewPresenter mainViewPresenter = new MainViewPresenter(main);
+        
+        BalanceView balance = new BalanceView();
+        navigator.addView(BalanceView.NAME, balance);
         
         ((Shiny_lanaUI)UI.getCurrent()).getNavigator().navigateTo(LoginView.NAME);
         

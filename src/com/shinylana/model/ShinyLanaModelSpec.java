@@ -15,7 +15,7 @@ public interface ShinyLanaModelSpec {
 	
 	// Retrieve data from DB
 	@SuppressWarnings("rawtypes")
-	List select(String username, String password);
+	List select(List<?> record);
 	
 	// Update data in DB
 	void update();

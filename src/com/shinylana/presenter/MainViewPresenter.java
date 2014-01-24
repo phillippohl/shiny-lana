@@ -4,6 +4,7 @@
 package com.shinylana.presenter;
 
 import com.shinylana.ui.Shiny_lanaUI;
+import com.shinylana.ui.views.BalanceView;
 import com.shinylana.ui.views.MainView;
 import com.shinylana.ui.views.MainViewSpec.MainViewListener;
 import com.vaadin.ui.UI;
@@ -31,8 +32,13 @@ public class MainViewPresenter implements MainViewListener {
 	 */
 	@Override
 	public void SelectedTabChange() {
-		view.setDisplay("Tab change");
 		System.out.println(view.getCurrentTab().getCaption());
+		if (view.getCurrentTab().getCaption().equals("Balance")) {
+			view.setDisplay("Tab change");
+			BalanceView balance = new BalanceView();
+			BalanceViewPresenter balance_presenter = new BalanceViewPresenter(balance);
+			view.setTabSheetContent(balance);
+		}
 		if (view.getCurrentTab().getCaption().equals("Logout")) {
 			((Shiny_lanaUI)UI.getCurrent()).logout();
 		}

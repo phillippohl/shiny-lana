@@ -30,8 +30,7 @@ public class LoginModel implements ShinyLanaModelSpec {
 	 * @see com.shinylana.model.ShinyLanaModelSpec#insert()
 	 */
 	@Override
-	public void insert(List newUser) {
-		
+	public void insert(List newUser) {	
 		List newUserRecord = new ArrayList();
 		newUserRecord.add(10);
 		newUserRecord.add(newUser.get(0));
@@ -45,9 +44,9 @@ public class LoginModel implements ShinyLanaModelSpec {
 	 * @see com.shinylana.model.ShinyLanaModelSpec#select()
 	 */
 	@Override
-	public List select(String username, String password) {
+	public List select(List<?> record) {
 		List result = new ArrayList();
-		result = userTable.select(username, password);
+		result = userTable.select(record);
 		return result;
 	}
 	
