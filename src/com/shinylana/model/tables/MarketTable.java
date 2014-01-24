@@ -8,7 +8,6 @@ package com.shinylana.model.tables;
  * @version 1.0
  */
 public class MarketTable {
-
 	public static final String PROPERTY_TABLE_NAME = "market";
     public static final String PROPERTY_TABLE_ID = PROPERTY_TABLE_NAME + "_id";
     public static final String PROPERTY_MARKET_NAME = PROPERTY_TABLE_NAME + "_name";

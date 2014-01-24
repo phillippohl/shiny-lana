@@ -8,13 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shinylana.model.tables.MarketTable;
-import com.shinylana.model.tables.UserTable;
-import com.shinylana.ui.Shiny_lanaUI;
 import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.query.TableQuery;
-import com.vaadin.ui.UI;
 
 /**
  * @author phillippohl

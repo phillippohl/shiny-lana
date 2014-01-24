@@ -8,7 +8,6 @@ package com.shinylana.model.tables;
  * @version 1.0
  */
 public class UserTable {
-	
     public static final String PROPERTY_TABLE_NAME = "user";
     public static final String PROPERTY_TABLE_ID = PROPERTY_TABLE_NAME + "_id";
     public static final String PROPERTY_USERNAME = "username";
