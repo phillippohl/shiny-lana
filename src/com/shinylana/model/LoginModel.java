@@ -34,7 +34,11 @@ public class LoginModel implements ShinyLanaModelSpec {
 		initContainer();
 	}
 	
-	private void initContainer() {
+	/* (non-Javadoc)
+	 * @see com.shinylana.model.ShinyLanaModelSpec#initContainer()
+	 */
+	@Override
+	public void initContainer() {
 		javaDate = new java.util.Date();
 		try {            
             tq_user = new TableQuery(UserTable.PROPERTY_TABLE_NAME, connectionPool);
