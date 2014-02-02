@@ -58,7 +58,7 @@ public class MarketModel implements ShinyLanaModelSpec {
         if (!userContainer.isModified()) {
             Object id = userContainer.addItem();    
             userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_ID).setValue(userContainer.size());
-            userContainer.getContainerProperty(id, MarketTable.PROPERTY_MARKET_NAME).setValue(newRecord.get(1));
+            userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_NAME).setValue(newRecord.get(1));
             userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME).setValue(newRecord.get(2));
             userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME_CHANGE).setValue(newRecord.get(3));
             try {
@@ -107,7 +107,7 @@ public class MarketModel implements ShinyLanaModelSpec {
         if (!userContainer.isModified()) { 
             userContainer.addContainerFilter(new Equal(MarketTable.PROPERTY_TABLE_ID, record.get(0)));
         	Object id = userContainer.firstItemId();
-            userContainer.getContainerProperty(id, MarketTable.PROPERTY_MARKET_NAME).setValue(record.get(1));
+            userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_NAME).setValue(record.get(1));
             userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME).setValue(record.get(2));
             userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME_CHANGE).setValue(record.get(3));
             try {
@@ -137,7 +137,7 @@ public class MarketModel implements ShinyLanaModelSpec {
             Object id = userContainer.firstItemId();
             System.out.println(userContainer);
             result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_ID).getValue());
-            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_MARKET_NAME).getValue());
+            result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_TABLE_NAME).getValue());
             result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME).getValue());
             result.add(userContainer.getContainerProperty(id, MarketTable.PROPERTY_VOLUME_CHANGE).getValue());
         }

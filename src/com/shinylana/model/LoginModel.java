@@ -59,7 +59,7 @@ public class LoginModel implements ShinyLanaModelSpec {
         if (!userContainer.isModified()) {
             Object id = userContainer.addItem();    
             userContainer.getContainerProperty(id, UserTable.PROPERTY_TABLE_ID).setValue(userContainer.size());
-            userContainer.getContainerProperty(id, UserTable.PROPERTY_USERNAME).setValue(newRecord.get(0));
+            userContainer.getContainerProperty(id, UserTable.PROPERTY_TABLE_NAME).setValue(newRecord.get(0));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_PASSWORD).setValue(newRecord.get(1));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_EMAIL).setValue(newRecord.get(2));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_CREATE_TIME).setValue(new java.sql.Date(javaDate.getTime()));
@@ -82,7 +82,7 @@ public class LoginModel implements ShinyLanaModelSpec {
 		
         if (!userContainer.isModified()) {
         	// username
-            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_USERNAME, record.get(0)));
+            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_TABLE_NAME, record.get(0)));
             // password
             userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_PASSWORD, record.get(1)));
             Object id = userContainer.firstItemId();
@@ -111,7 +111,7 @@ public class LoginModel implements ShinyLanaModelSpec {
         	// username
             userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_TABLE_ID, record.get(0)));
         	Object id = userContainer.firstItemId();
-            userContainer.getContainerProperty(id, UserTable.PROPERTY_USERNAME).setValue(record.get(1));
+            userContainer.getContainerProperty(id, UserTable.PROPERTY_TABLE_NAME).setValue(record.get(1));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_PASSWORD).setValue(record.get(2));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_EMAIL).setValue(record.get(3));
             userContainer.getContainerProperty(id, UserTable.PROPERTY_CREATE_TIME).setValue(new java.sql.Date(javaDate.getTime()));
@@ -150,7 +150,7 @@ public class LoginModel implements ShinyLanaModelSpec {
 		List result = new ArrayList();
 		initContainer();
         if (!userContainer.isModified()) {
-            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_USERNAME, username));
+            userContainer.addContainerFilter(new Equal(UserTable.PROPERTY_TABLE_NAME, username));
             Object id = userContainer.firstItemId();
             	
             // Return row number (user_id)

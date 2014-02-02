@@ -38,7 +38,7 @@ public class BalanceModel implements ShinyLanaModelSpec {
 	@Override
 	public void initContainer() {
 		try {            
-            tq_user = new TableQuery(BalanceTable.PROPERTY_TABLE_NAME, connectionPool);
+            tq_user = new TableQuery(BalanceTable.PROPERTY_TABLE, connectionPool);
             tq_user.setVersionColumn("OPTLOCK");
             userContainer = new SQLContainer(tq_user);
           } catch (SQLException e) {
@@ -56,10 +56,10 @@ public class BalanceModel implements ShinyLanaModelSpec {
         if (!userContainer.isModified()) {
             Object id = userContainer.addItem();    
             userContainer.getContainerProperty(id, BalanceTable.PROPERTY_TABLE_ID).setValue(userContainer.size());
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).setValue(newRecord.get(1));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).setValue(newRecord.get(2));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).setValue(newRecord.get(3));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).setValue(newRecord.get(4));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_SHARE_CAPITAL).setValue(newRecord.get(1));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_LIABILITIES).setValue(newRecord.get(2));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_AR).setValue(newRecord.get(3));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LOANS).setValue(newRecord.get(4));
             try {
             	userContainer.commit();
             } catch (SQLException e) {
@@ -105,10 +105,10 @@ public class BalanceModel implements ShinyLanaModelSpec {
         if (!userContainer.isModified()) { 
             userContainer.addContainerFilter(new Equal(BalanceTable.PROPERTY_TABLE_ID, record.get(0)));
         	Object id = userContainer.firstItemId();
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).setValue(record.get(1));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).setValue(record.get(2));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).setValue(record.get(3));
-            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).setValue(record.get(4));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_SHARE_CAPITAL).setValue(record.get(1));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_LIABILITIES).setValue(record.get(2));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_AR).setValue(record.get(3));
+            userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LOANS).setValue(record.get(4));
             try {
             	userContainer.commit();
             	userContainer.removeAllContainerFilters();
@@ -140,10 +140,10 @@ public class BalanceModel implements ShinyLanaModelSpec {
             Object id = userContainer.firstItemId();
             System.out.println(userContainer);
             result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_TABLE_ID).getValue());
-            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_EQUITY).getValue());
-            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LIABILITIES).getValue());
-            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_RECEIVABLES).getValue());
-            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_STOCK_PRICE).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_SHARE_CAPITAL).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_CURRENT_LIABILITIES).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_AR).getValue());
+            result.add(userContainer.getContainerProperty(id, BalanceTable.PROPERTY_LOANS).getValue());
         }
             
         try {
