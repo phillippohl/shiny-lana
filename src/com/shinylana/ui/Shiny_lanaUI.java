@@ -7,7 +7,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Notification;
@@ -29,11 +28,11 @@ import com.shinylana.presenter.RegisterPresenter;
 @Theme("shiny-lanatheme")
 public class Shiny_lanaUI extends UI {
 	
+	public static final String NEWCOMPANY_VIEW = "newCompany";
+	
 	private Navigator navigator;
 	private String loggedInUser;
-	private int currentPeriod = 0;
-
-    public static final String NEWCOMPANY_VIEW = "newCompany";
+	private int currentPeriod;
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = Shiny_lanaUI.class)
@@ -90,19 +89,24 @@ public class Shiny_lanaUI extends UI {
             public void afterViewChange(ViewChangeEvent event) {
 
             }
-        });
+        });		
+		setCurrentPeriod(1);
 	}
 	
 	public int getCurrentPeriod() {
 		return currentPeriod;
 	}
 	
-	public void setLoggedInUser(String user) {
-        loggedInUser = user;
-    }
-   
+	public void setCurrentPeriod(int period) {
+		currentPeriod = period;
+	}
+	
     public String getLoggedInUser() {
     	return loggedInUser;
+    }
+	
+	public void setLoggedInUser(String user) {
+        loggedInUser = user;
     }
     
     public void logout() {
